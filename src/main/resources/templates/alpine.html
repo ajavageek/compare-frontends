@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Compare Frontends</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div x-data="app">
+    <nav class="navbar">
+        <div class="container">
+            <span class="navbar-brand h1" x-text="title"></span>
+        </div>
+    </nav>
+    <div class="container">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Label</th>
+                    <th>Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="todo in todos" :key="todo.id">
+                    <tr>
+                        <td x-text="todo.id"></td>
+                        <td x-text="todo.label"></td>
+                        <td>
+                            <label>
+                                <input type="checkbox" :checked="todo.completed" @click="check(todo.id)">
+                            </label>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" class="text-end">
+                    <button class="btn btn-warning" @click="cleanup()">Cleanup</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    <form>
+                        <div class="form-group row">
+                            <label for="new-todo-label" class="col-auto col-form-label">New task</label>
+                            <div class="col-10">
+                                <input type="text" id="new-todo-label" placeholder="Label" class="form-control" x-model="label" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-success" @click="create()">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<script th:src="@{/webjars/axios/dist/axios.js}" src="https://cdn.jsdelivr.net/npm/axios@1.7/dist/axios.min.js"></script>
+<script th:src="@{/webjars/alpinejs/dist/cdn.js}" src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+<script th:src="@{/alpine.js}" src="../static/alpine.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    window.alpineData = {
+        title: /*[[${ title }]]*/ 'A Title',
+        todos: /*[[${ todos }]]*/ [{ 'id': 1, 'label': 'Take out the trash', 'completed': false }]
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

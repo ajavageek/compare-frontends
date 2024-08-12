@@ -1,0 +1,46 @@
+<table id="table" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Label</th>
+        <th>Completed</th>
+    </tr>
+    </thead>
+    <tbody id="lines">
+    <tr th:replace="~{htmx/lines.html}">
+        <td></td>
+        <td>Take out the trash
+        <td>
+            <label>
+                <input type="checkbox" checked/>
+            </label>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4" class="text-end">
+            <button class="btn btn-warning" hx-delete="/htmx/todo:cleanup" hx-trigger="click" hx-target="#lines">
+                Cleanup
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="3">
+            <form>
+                <div class="form-group row">
+                    <label for="label" class="col-auto col-form-label">New task</label>
+                    <div class="col-10">
+                        <input type="text" name="label" id="label" placeholder="Label" class="form-control"/>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success" hx-post="/htmx/todo" hx-target="#table">Add
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </td>
+    </tr>
+    </tfoot>
+</table>
